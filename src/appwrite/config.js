@@ -97,7 +97,7 @@ export class Service{
             const response =  await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                [Query.equal("slug", slug)]
+                [Query.equal("$id", slug)]
             );
             if (response.documents.length === 0) {
                 console.warn(`No post found with slug: ${slug}`);
@@ -233,13 +233,16 @@ export class Service{
     //     }
     // }
     
+      
     
 
 
 
     //assignments for download
 }
-
+export const getImageUrl = (fileId) => {
+    return `https://cloud.appwrite.io/v1/storage/buckets/67f0f9520025a65e49e7/files/${fileId}/view?project=67f0f4140007f5c1d9bf`;
+  };
 
 const service = new Service();
 

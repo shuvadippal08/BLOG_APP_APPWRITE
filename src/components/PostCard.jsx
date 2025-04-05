@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import appwriteService from "../appwrite/config";
-
+// import appwriteService from "../appwrite/config";
+import { getImageUrl } from "../appwrite/config";
 function PostCard({ $id, title, featuredImage, slug }) {
   const [imgError, setImgError] = useState(false);
-
   const imageUrl =
     featuredImage && !imgError
-      ? appwriteService.getFileView(featuredImage)
+      ? getImageUrl(featuredImage)
       : "https://placehold.co/300x200?text=No+Image";
     if (!slug) {
         console.warn("PostCard: Missing slug for post:", $id);
@@ -16,18 +15,18 @@ function PostCard({ $id, title, featuredImage, slug }) {
       }
       
   return (
-    <Link to={`/post/${slug}`}>
-      <div className="w-full bg-gray-100 rounded-xl p-4">
-        <div className="w-full justify-center mb-4">
-          <img
-            src={imageUrl}
-            alt={title}
-            className="rounded-xl"
-            onError={() => setImgError(true)}
-          />
-        </div>
-        <h2 className="text-xl font-bold">{title}</h2>
-      </div>
+    <Link to={`/post/${$id}`}>
+      <div className="w-full max-w-sm bg-white rounded-2xl shadow p-4">
+  <div className="w-full h-48 flex justify-center items-center mb-4 overflow-hidden rounded-xl bg-gray-200">
+    <img
+      src={imageUrl}
+      alt={title}
+      className="object-cover h-full w-full"
+      onError={() => setImgError(true)}
+    />
+  </div>
+  <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
+</div>
     </Link>
   );
 }

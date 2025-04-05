@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import authService from "./appwrite/auth"
-import {login, logout} from "./store/authSlice"
+import {login, logout, finishLoading} from "./store/authSlice"
 import { Footer, Header } from './components'
 import { Outlet } from 'react-router-dom'
 
 function App() {
-  const [loading, setLoading] = useState(true)
+  
   const dispatch = useDispatch()
+  const loading = useSelector((state) => state.auth.loading);
 
   useEffect(() => {
     authService.getCurrentUser()
@@ -18,8 +19,10 @@ function App() {
       } else {
         dispatch(logout())
       }
+    }).catch((err) => {
+      console.error("Auth error",err)
     })
-    .finally(() => setLoading(false))
+    .finally(() =>dispatch( finishLoading()))
   }, [dispatch]);
   
   return !loading ? (

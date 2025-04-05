@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import appwriteService from "../appwrite/config";
 import { Button, Container } from "../components";
+import { getImageUrl } from "../appwrite/config";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 
@@ -58,9 +59,12 @@ export default function Post() {
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
                     {post.featuredImage ? (
                         <img
-                            src={appwriteService.getFileView(post.featuredImage)}
+                        src={getImageUrl(post.featuredImage)}
                             alt={post.title}
                             className="rounded-xl"
+                            onError={(e) =>
+                                (e.currentTarget.src = "https://placehold.co/300x200?text=No+Image")
+                              }
                         />
                     ) : (
                         <p className="text-center text-gray-500">No image available</p>

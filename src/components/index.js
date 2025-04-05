@@ -12,7 +12,7 @@ import PostForm from "./post-form/PostForm";
 import PostCard from "./PostCard.jsx";
 import AuthLayout from "./AuthLayout";
 import Input from "./Input";
-
+import { Provider } from "react-redux";
 export {
     Header,
     Footer,
@@ -28,4 +28,5 @@ export {
     AuthLayout, 
     Input,
     Select,
+    Provider
 }

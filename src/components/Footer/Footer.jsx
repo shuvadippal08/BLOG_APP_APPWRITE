@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 import Logo from '../Logo'
 
 function Footer() {
@@ -69,7 +70,7 @@ function Footer() {
                                 <li className="mb-4">
                                     <Link
                                         className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        to="/"
+                                        to="/account"
                                     >
                                         Account
                                     </Link>

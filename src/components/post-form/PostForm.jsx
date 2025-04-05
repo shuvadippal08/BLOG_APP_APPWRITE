@@ -5,8 +5,10 @@ import { Button, Input, RTE, Select } from "..";
 import appwriteService from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import { getImageUrl } from "../../appwrite/config";
 export default function PostForm({ post }) {
+
+
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
@@ -18,13 +20,17 @@ export default function PostForm({ post }) {
     });
 
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.auth.userData);
-
+  const {userData, loading} = useSelector((state) => state.auth || {});
+    
   const submit = async (data) => {
+    if(loading){
+      return <div><p className="text-center w-full">Loading auth info...</p></div>
+    }
     console.log("Uploading File:", data.image?.[0]);
     if (!userData || !userData.$id) {
       console.error("User is not authenticated.");
-      return;
+      return <p className="text-center w-full">User not authenticated</p>;
+      
     }
 
     const file = data.image?.[0]
@@ -75,6 +81,10 @@ export default function PostForm({ post }) {
     return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
 
+  if (!userData) {
+    return <p className="text-center w-full">Loading user info...</p>;
+  }
+  
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
       <div className="w-2/3 px-2">
@@ -112,23 +122,26 @@ export default function PostForm({ post }) {
           {...register("image", { required: !post })}
         />
 
+        
         {post && post.featuredImage ? (
-          <div className="w-full mb-4">
-            <img
-              src={appwriteService.getFilePreview(post.featuredImage)}
-              alt={post.title}
-              className="rounded-lg"
-              onError={(e) =>
-                (e.currentTarget.src =
-                  "https://via.placeholder.com/300x200?text=No+Image")
-              }
-            />
-          </div>
-        ) : (
-          <div className="w-full mb-4 h-40 bg-gray-200 rounded-lg flex items-center justify-center text-gray-600">
-            No Preview Image
-          </div>
-        )}
+  <div className="w-full mb-4">
+    <img
+      src={getImageUrl(post.featuredImage)}
+      alt={post.title}
+      className="rounded-lg"
+      onError={(e) =>
+        (e.currentTarget.src =
+          "https://placehold.co/300x200?text=No+Image")
+      }
+    />
+  </div>
+) : (
+  <div className="w-full mb-4 h-40 bg-gray-200 rounded-lg flex items-center justify-center text-gray-600">
+    No Preview Image
+  </div>
+)}
+
+
 
         <Select
           options={["active", "inactive"]}
