@@ -15,6 +15,7 @@ export default function RTE({name, control, label, defaultValue =""}) {
                 control={control}
                 render={({field: {onChange}})=> (
                     <Editor
+                    apiKey='b16laue21wvxmb564ks9dr5wpfubbi94m7ph84ofbn4q53l9'
                     initialValue = {defaultValue}
                     init={{
                         initialValue: defaultValue,
@@ -26,7 +27,6 @@ export default function RTE({name, control, label, defaultValue =""}) {
                             "autolink",
                             "lists",
                             "link",
-                            "image",
                             "charmap",
                             "preview",
                             "anchor",
@@ -37,10 +37,8 @@ export default function RTE({name, control, label, defaultValue =""}) {
                             "insertdatetime",
                             "media",
                             "table",
-                            "code",
                             "help",
                             "wordcount",
-                            "anchor",
                         ],
 
                         toolbar:
@@ -49,7 +47,7 @@ export default function RTE({name, control, label, defaultValue =""}) {
                         content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
                     }}
 
-                    onEditorChange={onChange}
+                    onEditorChange={(content) => onChange(content)}
                     
                     />
                 )}

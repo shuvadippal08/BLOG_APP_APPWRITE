@@ -17,6 +17,7 @@ function EditPost() {
             })
         }
         else{
+            console.warn("Slug is missing , redirecting home.")
             navigate('/')
         }
     },[slug,navigate])
