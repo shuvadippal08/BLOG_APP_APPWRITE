@@ -7,7 +7,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-function SearchResults() {
+function SearchResult() {
   const query = useQuery().get("q");
   const [results, setResults] = useState([]);
 
@@ -47,4 +47,4 @@ function SearchResults() {
   );
 }
 
-export default SearchResults;
+export default SearchResult;
