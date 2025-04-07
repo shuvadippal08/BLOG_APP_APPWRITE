@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-// import appwriteService from "../appwrite/config";
 import { getImageUrl } from "../appwrite/config";
 function PostCard({ $id, title, featuredImage, slug }) {
+  // console.log("PostCard Props:", { $id, title, slug });
   const [imgError, setImgError] = useState(false);
   const imageUrl =
     featuredImage && !imgError
@@ -16,8 +16,9 @@ function PostCard({ $id, title, featuredImage, slug }) {
       
   return (
     <Link to={`/post/${$id}`}>
-      <div className="w-full max-w-sm bg-white rounded-2xl shadow p-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow p-2">
   <div className="w-full h-48 flex justify-center items-center mb-4 overflow-hidden rounded-xl bg-gray-200">
+  
     <img
       src={imageUrl}
       alt={title}
@@ -25,7 +26,9 @@ function PostCard({ $id, title, featuredImage, slug }) {
       onError={() => setImgError(true)}
     />
   </div>
+  
   <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
+  
 </div>
     </Link>
   );
@@ -35,7 +38,8 @@ PostCard.propTypes = {
   $id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   featuredImage: PropTypes.string,
-  slug: PropTypes.string.isRequired
+  slug: PropTypes.string.isRequired,
+
 };
 
 export default PostCard;

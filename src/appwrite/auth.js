@@ -4,12 +4,14 @@ import {Client, Account, ID } from 'appwrite';
 export class AuthService {
     client = new Client();
     account;
+    
 
     constructor() {
         this.client
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId);
         this.account = new Account(this.client);
+        this.user = this.account.get();
     }
 
     async createAccount({email, password, name}){
@@ -51,7 +53,6 @@ export class AuthService {
             console.log("Appwrite service :: Logout :: error ",error);
         }
     }
-
 
 }
 

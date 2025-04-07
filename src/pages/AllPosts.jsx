@@ -7,22 +7,15 @@ function AllPosts() {
   const [posts, setPosts] = useState([]);
   const [userId, setUserId] = useState(null);
   useEffect(() => {
-    // appwriteService.getPosts().then((posts) => {
-    //   if (posts) {
-    //     setPosts(posts.documents);
-    //   }
-    // });
     authService.getCurrentUser()
       .then((user) => {
         if (user) {
           setUserId(user.$id);
-
-          // Step 2: Fetch all active posts
           appwriteService.getPosts().then((posts) => {
             if (posts) {
               const userPosts = posts.documents.filter(
-                (post) => post.userId === user.$id
-              );
+                (post) => post.userId === user.$id)
+              
               setPosts(userPosts);
             }
           });
@@ -39,7 +32,6 @@ function AllPosts() {
         <div className="flex flex-wrap">
           {posts.map((post) => (
             <div key={post.$id} className="p-2 w-1/4">
-              {/* <PostCard post={post} /> */}
               <PostCard
                 $id={post.$id}
                 title={post.title}

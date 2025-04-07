@@ -9,9 +9,12 @@ function Home() {
     appwriteService
       .getPosts()
       .then((posts) => {
-        console.log("Fetched Posts: ",posts);
+        console.log("Fetched Posts: ", posts);
         if (posts) {
-          setPosts(posts.documents);
+          const activePosts = posts.documents.filter(
+            (post) => post.status === "active"
+          );
+          setPosts(activePosts);
         }
       })
       .catch((err) => console.error(`Failed to fetch posts ${err}`));
@@ -19,7 +22,7 @@ function Home() {
 
   if (posts.length === 0) {
     return (
-      <div className="w-full py-8 mt-4 text-center">
+      <div className="w-full py-4 mt-4 text-center">
         <Container>
           <div className="flex flex-wrap">
             <div className="p-2 w-full">
@@ -33,22 +36,21 @@ function Home() {
     );
   }
   return (
-    <div className="w-full py-8">
-      <Container>
+    <div className="w-full py-4">
+      <Container >
         <div className="flex flex-wrap">
           {posts
-  .filter((post) => post.slug) // only posts with slug
-  .map((post) => (
-    <div key={post.$id} className="p-2 w-1/4">
-      <PostCard
-        $id={post.$id}
-        title={post.title}
-        featuredImage={post.featuredImage}
-        slug={post.slug}
-      />
-    </div>
-))}
-
+            .filter((post) => post.slug) // only posts with slug
+            .map((post) => (
+              <div key={post.$id} className="p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+                <PostCard
+                  $id={post.$id}
+                  title={post.title}
+                  featuredImage={post.featuredImage}
+                  slug={post.slug}
+                />
+              </div>
+            ))}
         </div>
       </Container>
     </div>

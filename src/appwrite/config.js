@@ -24,6 +24,7 @@ export class Service{
                     featuredImage,
                     status,
                     userId,
+
                   });
               
                   if (!userId) {
@@ -129,7 +130,6 @@ export class Service{
         try {
             const state = store.getState();
             const userId = state.auth.userData?.$id;
-
             if(!userId){
                 throw new Error("User ID not found in Redux Store");
             }
@@ -162,12 +162,6 @@ export class Service{
         }
     }
 
-    // getFilePreview(fileId){
-    //     return this.bucket.getFilePreview(
-    //         conf.appwriteBucketId,
-    //         fileId,
-    //     )
-    // }
     getFilePreview(fileId) {
         if (!fileId || typeof fileId !== "string") {
             console.warn("getFilePreview: Invalid fileId", fileId);
@@ -216,27 +210,6 @@ export class Service{
             return null;
         }
     }
-    
-    
-    // getFilePreview(fileId) {
-    //     if (!fileId || typeof fileId !== "string") {
-    //         console.warn("getFilePreview: Invalid fileId", fileId);
-    //         return null;
-    //     }
-    
-    //     try {
-    //         const preview = this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
-    //         return preview?.href || null;
-    //     } catch (error) {
-    //         console.error("getFilePreview failed:", error);
-    //         return null;
-    //     }
-    // }
-    
-      
-    
-
-
 
     //assignments for download
 }
