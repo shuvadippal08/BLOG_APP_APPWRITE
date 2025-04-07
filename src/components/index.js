@@ -13,6 +13,7 @@ import PostCard from "./PostCard.jsx";
 import AuthLayout from "./AuthLayout";
 import Input from "./Input";
 import { Provider } from "react-redux";
+// import SearchResults from "../pages/SearchResult.jsx";
 export {
     Header,
     Footer,
