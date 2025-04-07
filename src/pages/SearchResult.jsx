@@ -25,7 +25,7 @@ function SearchResults() {
   return (
     <div className='w-full py-8'>
       <Container>
-        <h2 className="text-2xl font-bold mb-4">Search results for: "{query}"</h2>
+        <h2 className="text-2xl font-bold mb-4">Search results for:{query}</h2>
         <div className="flex flex-wrap">
           {results.length > 0 ? (
             results.map((post) => (
